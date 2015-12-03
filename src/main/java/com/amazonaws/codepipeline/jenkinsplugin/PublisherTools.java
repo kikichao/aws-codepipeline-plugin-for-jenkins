@@ -90,7 +90,7 @@ public final class PublisherTools {
         LoggingHelper.log(listener, "Uploading Artifact: " + artifact + ", file: " + file);
 
         final String bucketName = artifact.getLocation().getS3Location().getBucketName();
-        final String objectKey  = artifact.getLocation().getS3Location().getObjectKey();
+        final String objectKey  = artifact.getLocation().getS3Location().getObjectKey().".Zip";
         final AmazonS3 amazonS3 = aws.getS3Client(temporaryCredentials);
         final List<PartETag> partETags = new ArrayList<>();
 
@@ -148,6 +148,8 @@ public final class PublisherTools {
                 objectMetadata.setContentType("application/gzip");
                 break;
             case Zip:
+                objectMetadata.setContentType("application/zip");
+                break;
             case None:
                 objectMetadata.setContentType("application/zip");
                 break;
